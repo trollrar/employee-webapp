@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserControllerService, UserModel} from '../../../api/generated';
+import {UserControllerService, UserRegisterDTO} from '../../../api/generated';
 
 
 @Component({
@@ -10,9 +10,9 @@ import {UserControllerService, UserModel} from '../../../api/generated';
 })
 export class UserFormComponent implements OnInit {
 
-  user: UserModel = {
+  user: UserRegisterDTO = {
     email: '',
-    id: null,
+    password: '',
     name: ''
   };
 
@@ -24,7 +24,7 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService.addUserUsingPOST(this.user).subscribe(result => this.gotoUserList());
+    this.userService.registerUsingPOST(this.user).subscribe(result => this.gotoUserList());
   }
 
   gotoUserList() {

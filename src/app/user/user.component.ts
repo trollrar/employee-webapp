@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserControllerService, UserModel} from '../../api/generated';
+import {UserControllerService, UserDTO} from '../../api/generated';
 
 
 @Component({
@@ -9,7 +9,7 @@ import {UserControllerService, UserModel} from '../../api/generated';
 })
 export class UserComponent implements OnInit {
 
-  users: UserModel[];
+  users: UserDTO[];
 
   constructor(private userService: UserControllerService) {
   }
