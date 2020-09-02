@@ -8,7 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate": "swagger-angular-generator -s src/api/scheme.json -d src/api/generated"
+    "generate": "swagger-angular-generator -s src/api/scheme.json -d src/api/generated",
+    "generate-local": "swagger-angular-generator -s src/api/scheme.json -u http://localhost:8080/v2/api-docs -d src/api/generated",
+    "generate-codegen": "java -jar tools/swagger-codegen-cli.jar generate -i http://localhost:8080/v2/api-docs -l typescript-angular -o src/api/generated"
   },
   "private": true,
   "dependencies": {
@@ -21,7 +23,7 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "rxjs": "~6.4.0",
-    "swagger-angular-generator": "^4.2.2",
+    "rxjs-compat": "^6.6.2",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

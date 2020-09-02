@@ -7,7 +7,7 @@ import { UserComponent } from './user/user.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import {UserService} from './user/user.service';
+import {UserControllerService} from '../api/generated';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import {UserService} from './user/user.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UserService],
+  providers: [UserControllerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

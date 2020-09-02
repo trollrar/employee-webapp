@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../user';
-import {UserService} from '../user.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {UserControllerService, UserModel} from '../../../api/generated';
+
 
 @Component({
   selector: 'app-user-form',
@@ -10,17 +10,21 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class UserFormComponent implements OnInit {
 
-  user = new User();
+  user: UserModel = {
+    email: '',
+    id: null,
+    name: ''
+  };
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private userService: UserService) {}
+              private userService: UserControllerService) {}
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.userService.save(this.user).subscribe(result => this.gotoUserList());
+    this.userService.addUserUsingPOST(this.user).subscribe(result => this.gotoUserList());
   }
 
   gotoUserList() {
