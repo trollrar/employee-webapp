@@ -7,21 +7,29 @@ import { UserComponent } from './user/user.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import {UserControllerService} from '../api/generated';
+import {ApiModule} from '../api/generated';
+import { UserLoginComponent } from './user/user-login/user-login.component';
+import {AuthorizationService} from './user/authorization.service';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ApiModule
   ],
-  providers: [UserControllerService],
+  providers: [
+    CookieService,
+    AuthorizationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

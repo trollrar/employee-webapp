@@ -13,7 +13,7 @@ export class UserFormComponent implements OnInit {
   user: UserRegisterDTO = {
     email: '',
     password: '',
-    name: ''
+    username: ''
   };
 
   constructor(private route: ActivatedRoute,

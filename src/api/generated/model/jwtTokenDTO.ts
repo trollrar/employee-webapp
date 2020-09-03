@@ -10,8 +10,6 @@
  * Do not edit the class manually.
  */
 
-export interface UserDTO { 
-    email?: string;
-    id?: number;
-    username?: string;
+export interface JwtTokenDTO { 
+    token?: string;
 }

@@ -1,6 +1,6 @@
 /**
  * Spring Boot REST API
- * Main REST API
+ * Main rest api
  *
  * OpenAPI spec version: 1.0-SNAPSHOT
  * Contact: vladimirseme@gmail.com
@@ -11,6 +11,6 @@
  */
 
 export interface UserLoginDTO { 
-    name?: string;
     password?: string;
+    username?: string;
 }
