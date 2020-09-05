@@ -10,6 +10,6 @@
  * Do not edit the class manually.
  */
 
-export interface JwtTokenDTO { 
+export interface UserJwtDTO { 
     token?: string;
 }

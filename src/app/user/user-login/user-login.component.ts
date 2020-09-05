@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Optional} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Configuration, UserControllerService, UserLoginDTO} from '../../../api/generated';
 
@@ -17,7 +17,9 @@ export class UserLoginComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private userService: UserControllerService,
-              private configuration: Configuration) {}
+              @Optional() private configuration: Configuration) {
+    console.log(configuration);
+  }
 
   ngOnInit() {
   }
@@ -25,6 +27,7 @@ export class UserLoginComponent implements OnInit {
   onSubmit() {
     this.userService.loginUsingPOST(this.user).subscribe(result => {
       this.configuration.apiKeys.Authorization = 'Bearer ' + result.token;
+
       this.gotoUserList();
     });
   }

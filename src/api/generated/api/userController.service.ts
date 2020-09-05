@@ -17,8 +17,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs/Observable';
 
-import { JwtTokenDTO } from '../model/jwtTokenDTO';
 import { UserDTO } from '../model/userDTO';
+import { UserJwtDTO } from '../model/userJwtDTO';
 import { UserLoginDTO } from '../model/userLoginDTO';
 import { UserRegisterDTO } from '../model/userRegisterDTO';
 
@@ -29,7 +29,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class UserControllerService {
 
-    protected basePath = '//localhost:8080/';
+    protected basePath = '//localhost:8080';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -59,8 +59,101 @@ export class UserControllerService {
 
 
     /**
+     * amIAdmin
+     *
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public amIAdminUsingGET(observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public amIAdminUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public amIAdminUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public amIAdminUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<string>(`${this.basePath}/api/admin`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * becomeAdmin
+     *
+     * @param username username
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public becomeAdminUsingGET(username: string, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public becomeAdminUsingGET(username: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public becomeAdminUsingGET(username: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public becomeAdminUsingGET(username: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (username === null || username === undefined) {
+            throw new Error('Required parameter username was null or undefined when calling becomeAdminUsingGET.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (username !== undefined && username !== null) {
+            queryParameters = queryParameters.set('username', <any>username);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (JWT) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<string>(`${this.basePath}/api/public/become`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * getUsers
-     * 
+     *
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -101,14 +194,14 @@ export class UserControllerService {
 
     /**
      * login
-     * 
+     *
      * @param body dto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public loginUsingPOST(body: UserLoginDTO, observe?: 'body', reportProgress?: boolean): Observable<JwtTokenDTO>;
-    public loginUsingPOST(body: UserLoginDTO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<JwtTokenDTO>>;
-    public loginUsingPOST(body: UserLoginDTO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<JwtTokenDTO>>;
+    public loginUsingPOST(body: UserLoginDTO, observe?: 'body', reportProgress?: boolean): Observable<UserJwtDTO>;
+    public loginUsingPOST(body: UserLoginDTO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserJwtDTO>>;
+    public loginUsingPOST(body: UserLoginDTO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserJwtDTO>>;
     public loginUsingPOST(body: UserLoginDTO, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -140,7 +233,7 @@ export class UserControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<JwtTokenDTO>(`${this.basePath}/api/login`,
+        return this.httpClient.post<UserJwtDTO>(`${this.basePath}/api/public/login`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -153,7 +246,7 @@ export class UserControllerService {
 
     /**
      * register
-     * 
+     *
      * @param body dto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -191,7 +284,7 @@ export class UserControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/api/register`,
+        return this.httpClient.post<any>(`${this.basePath}/api/public/register`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,

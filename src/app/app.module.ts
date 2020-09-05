@@ -7,7 +7,7 @@ import { UserComponent } from './user/user.component';
 import { UserFormComponent } from './user/user-form/user-form.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import {ApiModule} from '../api/generated';
+import {ApiModule, Configuration} from '../api/generated';
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import {AuthorizationService} from './user/authorization.service';
 import {CookieService} from 'ngx-cookie-service';
@@ -24,7 +24,8 @@ import {CookieService} from 'ngx-cookie-service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ApiModule
+    ApiModule,
+    ApiModule.forRoot(() => new Configuration({apiKeys: {authorization: ''}}))
   ],
   providers: [
     CookieService,
