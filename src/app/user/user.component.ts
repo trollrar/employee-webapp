@@ -10,11 +10,15 @@ import {UserControllerService, UserDTO} from '../../api/generated';
 export class UserComponent implements OnInit {
 
   users: UserDTO[];
+  dtring: string;
 
   constructor(private userService: UserControllerService) {
   }
 
   ngOnInit() {
+    this.userService.amIAdminUsingGET().subscribe(data => {
+      this.dtring = data;
+    });
     this.userService.getUsersUsingGET().subscribe(data => {
       this.users = data;
     });

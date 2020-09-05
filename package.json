@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate-api": "java -jar tools/swagger-codegen-cli.jar generate -i http://localhost:8080/v2/api-docs -l typescript-angular -o src/api/generated"
+    "generate-api": "java -jar tools/swagger-codegen-cli.jar generate -i http://localhost:8080/api/v2/api-docs -l typescript-angular -o src/api/generated"
   },
   "private": true,
   "dependencies": {

@@ -9,8 +9,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {ApiModule, Configuration} from '../api/generated';
 import { UserLoginComponent } from './user/user-login/user-login.component';
-import {AuthorizationService} from './user/authorization.service';
-import {CookieService} from 'ngx-cookie-service';
+import {configurationFactory} from '../api/variables';
+import {SharedModule} from './shared/shared.module';
+import {AuthenticationService} from './shared/authentication/authentication.service';
 
 @NgModule({
   declarations: [
@@ -24,13 +25,10 @@ import {CookieService} from 'ngx-cookie-service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ApiModule,
-    ApiModule.forRoot(() => new Configuration({apiKeys: {authorization: ''}}))
+    ApiModule.forRoot(configurationFactory),
+    SharedModule,
   ],
-  providers: [
-    CookieService,
-    AuthorizationService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

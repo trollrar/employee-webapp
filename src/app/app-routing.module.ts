@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: 'users', component: UserComponent },
   { path: 'login', component: UserLoginComponent },
   { path: 'adduser', component: UserFormComponent }
-
 ];
 
 @NgModule({

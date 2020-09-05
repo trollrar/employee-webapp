@@ -29,7 +29,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class UserControllerService {
 
-    protected basePath = '//localhost:8080';
+    protected basePath = '//localhost:8080/api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -60,7 +60,7 @@ export class UserControllerService {
 
     /**
      * amIAdmin
-     *
+     * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -89,7 +89,7 @@ export class UserControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<string>(`${this.basePath}/api/admin`,
+        return this.httpClient.get<string>(`${this.basePath}/admin`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -101,7 +101,7 @@ export class UserControllerService {
 
     /**
      * becomeAdmin
-     *
+     * 
      * @param username username
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -140,7 +140,7 @@ export class UserControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<string>(`${this.basePath}/api/public/become`,
+        return this.httpClient.get<string>(`${this.basePath}/public/become`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -153,7 +153,7 @@ export class UserControllerService {
 
     /**
      * getUsers
-     *
+     * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -182,7 +182,7 @@ export class UserControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<UserDTO>>(`${this.basePath}/api/users`,
+        return this.httpClient.get<Array<UserDTO>>(`${this.basePath}/users`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -194,7 +194,7 @@ export class UserControllerService {
 
     /**
      * login
-     *
+     * 
      * @param body dto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -233,7 +233,7 @@ export class UserControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<UserJwtDTO>(`${this.basePath}/api/public/login`,
+        return this.httpClient.post<UserJwtDTO>(`${this.basePath}/login`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -246,14 +246,14 @@ export class UserControllerService {
 
     /**
      * register
-     *
+     * 
      * @param body dto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public registerUsingPOST(body: UserRegisterDTO, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public registerUsingPOST(body: UserRegisterDTO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public registerUsingPOST(body: UserRegisterDTO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public registerUsingPOST(body: UserRegisterDTO, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public registerUsingPOST(body: UserRegisterDTO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public registerUsingPOST(body: UserRegisterDTO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
     public registerUsingPOST(body: UserRegisterDTO, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (body === null || body === undefined) {
@@ -269,6 +269,7 @@ export class UserControllerService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            '*/*'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -284,7 +285,7 @@ export class UserControllerService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/api/public/register`,
+        return this.httpClient.post<string>(`${this.basePath}/register`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,

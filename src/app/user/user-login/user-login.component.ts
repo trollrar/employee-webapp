@@ -1,6 +1,7 @@
 import {Component, OnInit, Optional} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Configuration, UserControllerService, UserLoginDTO} from '../../../api/generated';
+import {AuthenticationService} from '../../shared/authentication/authentication.service';
 
 @Component({
   selector: 'app-user-login',
@@ -17,19 +18,15 @@ export class UserLoginComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private userService: UserControllerService,
-              @Optional() private configuration: Configuration) {
-    console.log(configuration);
+              private authorizationService: AuthenticationService) {
   }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    this.userService.loginUsingPOST(this.user).subscribe(result => {
-      this.configuration.apiKeys.Authorization = 'Bearer ' + result.token;
-
-      this.gotoUserList();
-    });
+  async onSubmit() {
+    const user = await this.authorizationService.login(this.user).toPromise();
+    if (!!user) { this.gotoUserList(); }
   }
 
   gotoUserList() {
