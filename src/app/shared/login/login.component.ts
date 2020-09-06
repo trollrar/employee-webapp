@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from '../authentication/authentication.service';
+import {AuthenticationService} from '../services/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserLoginDTO} from '../../../api/generated';
 import {first} from 'rxjs/operators';
@@ -14,8 +14,10 @@ export class LoginComponent implements OnInit {
     password: '',
     username: ''
   };
-  returnUrl: string;
+  public rememberMe = false;
   private error: string;
+
+  returnUrl: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,12 +32,22 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    const username = localStorage.getItem(USERNAME_KEY);
+    if (!!username) {
+      this.user.username = username;
+      this.rememberMe = true;
+    }
   }
 
   // convenience getter for easy access to form fields
 
   onSubmit() {
-    console.log(this.user);
+    if (this.rememberMe) {
+      localStorage.setItem(USERNAME_KEY, this.user.username);
+    } else {
+      localStorage.removeItem(USERNAME_KEY);
+    }
+
     this.authenticationService.login(this.user)
       .pipe(first())
       .subscribe(
@@ -47,3 +59,6 @@ export class LoginComponent implements OnInit {
         });
   }
 }
+
+export const USERNAME_KEY = 'rememberedUsername';
+

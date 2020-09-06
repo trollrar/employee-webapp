@@ -1,20 +1,44 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <div class="container">
-      <ul class="navbar-nav justify-content-between w-100">
-        <li class="nav-item py-1" [class.active] = "isMenuActive('')">
-          <a class="nav-link" routerLink="/">Home</a>
-        </li>
-        <li class="nav-item py-1 " [class.active] = "isMenuActive('users')">
-          <a class="nav-link" routerLink="/users">Users</a>
-        </li>
-        <li class="nav-item py-1 " [class.active] = "isMenuActive('users')">
-          <a class="nav-link" routerLink="/users">Pricing</a>
-        </li>
-        <li class="nav-item py-1 ">
-          <a class="nav-link" (click)="logout()">Logout</a>
-        </li>
-      </ul>
+<div class="sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
+  <div class="container-fluid">
+    <ul class="navbar-nav justify-content-end w-100">
+      <li *ngIf="!user" class="nav-item ">
+        <a class="nav-link d-inline" (click)="login()"><small>Login</small></a>
+      </li>
+      <li *ngIf="!user" class="nav-item ">
+        <a class="nav-link d-inline" (click)="login()"><small>Register</small></a>
+      </li>
+      <li *ngIf="!!user" class="nav-item">
+        <small class="text-muted d-inline">Logged as: </small>
+        <a class="nav-link d-inline" (click)="logout()"><small>{{user.username}}</small></a>
+      </li>
+      <li *ngIf="!!user" class="nav-item ">
+        <a class="nav-link d-inline" (click)="logout()"><small>Logout</small></a>
+      </li>
+    </ul>
   </div>
 </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="opacity: 0.95;">
+    <div class="container">
+      <ul class="navbar-nav justify-content-between w-100">
+        <li class="nav-item" [class.active] = "isMenuActive('')">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item " [class.active] = "isMenuActive('users')">
+          <a class="nav-link" routerLink="/users">Users</a>
+        </li>
+        <li class="nav-item " [class.active] = "isMenuActive('users')">
+          <a class="nav-link" routerLink="/store">Store</a>
+        </li>
+        <li class="nav-item " [class.active] = "isMenuActive('users')">
+          <a class="nav-link" routerLink="/about-us">About us</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" (click)="logout()">Cart</a>
+        </li>
+      </ul>
+    </div>
+</nav>
+</div>
 <router-outlet></router-outlet>
 

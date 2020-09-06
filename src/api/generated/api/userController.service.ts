@@ -60,7 +60,7 @@ export class UserControllerService {
 
     /**
      * amIAdmin
-     * 
+     *
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -71,7 +71,7 @@ export class UserControllerService {
 
         let headers = this.defaultHeaders;
 
-        // authentication (JWT) required
+        // services (JWT) required
         if (this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
@@ -101,7 +101,7 @@ export class UserControllerService {
 
     /**
      * becomeAdmin
-     * 
+     *
      * @param username username
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -122,7 +122,7 @@ export class UserControllerService {
 
         let headers = this.defaultHeaders;
 
-        // authentication (JWT) required
+        // services (JWT) required
         if (this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
@@ -153,7 +153,7 @@ export class UserControllerService {
 
     /**
      * getUsers
-     * 
+     *
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -164,7 +164,7 @@ export class UserControllerService {
 
         let headers = this.defaultHeaders;
 
-        // authentication (JWT) required
+        // services (JWT) required
         if (this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
@@ -194,7 +194,7 @@ export class UserControllerService {
 
     /**
      * login
-     * 
+     *
      * @param body dto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -210,7 +210,7 @@ export class UserControllerService {
 
         let headers = this.defaultHeaders;
 
-        // authentication (JWT) required
+        // services (JWT) required
         if (this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }
@@ -246,7 +246,7 @@ export class UserControllerService {
 
     /**
      * register
-     * 
+     *
      * @param body dto
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -262,7 +262,7 @@ export class UserControllerService {
 
         let headers = this.defaultHeaders;
 
-        // authentication (JWT) required
+        // services (JWT) required
         if (this.configuration.apiKeys["Authorization"]) {
             headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
         }

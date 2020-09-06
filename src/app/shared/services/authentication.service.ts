@@ -1,11 +1,9 @@
 import {Injectable, Optional} from '@angular/core';
-import {CookieService} from 'ngx-cookie-service';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Configuration, UserControllerService, UserDTO, UserLoginDTO} from '../../../api/generated';
-import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<UserDTO>;
   public currentUser: Observable<UserDTO>;
@@ -32,17 +30,18 @@ export class AuthenticationService {
     return this.userController.loginUsingPOST(loginDTO)
       .pipe(
         map(user => {
-        // login successful if there's a jwt token in the response
-        if (user.userDTO && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user.userDTO));
-          localStorage.setItem(USER_JWT_STORAGE_KEY, user.token);
-          this.configuration.apiKeys.Authorization = 'Bearer ' + user.token;
-          this.currentUserSubject.next(user.userDTO);
-        }
+          // login successful if there's a jwt token in the response
+          if (user.userDTO && user.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user.userDTO));
+            localStorage.setItem(USER_JWT_STORAGE_KEY, user.token);
 
-        return user;
-      }));
+            this.configuration.apiKeys.Authorization = 'Bearer ' + user.token;
+            this.currentUserSubject.next(user.userDTO);
+          }
+
+          return user;
+        }));
   }
 
   logout() {

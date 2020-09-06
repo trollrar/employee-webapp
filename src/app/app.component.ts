@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AuthenticationService} from './shared/authentication/authentication.service';
+import {AuthenticationService} from './shared/services/authentication.service';
 import {UserDTO} from '../api/generated';
 import RoleEnum = UserDTO.RoleEnum;
 import {Router} from '@angular/router';
