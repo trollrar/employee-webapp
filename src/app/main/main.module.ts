@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import {MainRoutingModule} from './main-routing.module';
 import {MainComponent} from './main.component';
 import { UserComponent } from './user/user.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -11,7 +12,8 @@ import { UserComponent } from './user/user.component';
   declarations: [HomeComponent, MainComponent, UserComponent],
   imports: [
     MainRoutingModule,
-    CommonModule
+    CommonModule,
+    NgbModule,
   ]
 })
 export class MainModule { }

@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {ApiModule} from '../api/generated';
 import {configurationFactory} from '../api/variables';
 import {SharedModule} from './shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {SharedModule} from './shared/shared.module';
     FormsModule,
     ApiModule.forRoot(configurationFactory),
     SharedModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

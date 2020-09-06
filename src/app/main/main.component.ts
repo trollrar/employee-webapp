@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Route, Router, RouterEvent} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../shared/services/authentication.service';
-import {filter, map} from 'rxjs/operators';
 import {UserDTO} from '../../api/generated';
+
+declare var $: any;
 
 @Component({
   selector: 'app-main',
@@ -13,13 +14,14 @@ export class MainComponent implements OnInit {
 
   public currentUrl = '';
   public user: UserDTO;
+  isCollapsed = true;
 
   constructor(private router: Router, private route: ActivatedRoute, private authenticationService: AuthenticationService) {
     authenticationService.currentUser.subscribe(user => this.user = user);
   }
 
   get isAdmin() {
-    return this.user?.role === 'ADMIN';
+    return this.user?.role === 'ADMIN' || false;
   }
 
   public isMenuActive(menu: string) {

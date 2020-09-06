@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     username: ''
   };
   public rememberMe = false;
-  private error: string;
+  public error: string;
 
   returnUrl: string;
 
