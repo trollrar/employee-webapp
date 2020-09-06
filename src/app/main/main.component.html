@@ -1,44 +1,44 @@
-<div class="sticky-top">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
-  <div class="container-fluid">
     <ul class="navbar-nav justify-content-end w-100">
       <li *ngIf="!user" class="nav-item ">
-        <a class="nav-link d-inline" (click)="login()"><small>Login</small></a>
-      </li>
-      <li *ngIf="!user" class="nav-item ">
-        <a class="nav-link d-inline" (click)="login()"><small>Register</small></a>
+        <button class="btn btn-sm btn-outline-secondary btn-text d-inline" (click)="login()">Login</button>
+        <button class="btn btn-sm btn-outline-secondary btn-text d-inline" (click)="login()">Register</button>
       </li>
       <li *ngIf="!!user" class="nav-item">
-        <small class="text-muted d-inline">Logged as: </small>
-        <a class="nav-link d-inline" (click)="logout()"><small>{{user.username}}</small></a>
-      </li>
-      <li *ngIf="!!user" class="nav-item ">
-        <a class="nav-link d-inline" (click)="logout()"><small>Logout</small></a>
+        <small class="text-white d-inline">Logged as: </small>
+        <small class="text-white d-inline mr-3">{{user.username}}</small>
+        <button class="btn btn-sm btn-outline-secondary btn-text d-inline" (click)="logout()">Logout</button>
       </li>
     </ul>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="opacity: 0.95">
+  <a class="font-italic navbar-brand mr-4 ">Karolina's Special</a>
+  <button (click)="isCollapsed=!isCollapsed" class="navbar-toggler" type="button">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div [ngbCollapse]="isCollapsed" class="pl-2 collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item" [class.active] = "isMenuActive('')">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item " [class.active] = "isMenuActive('users')">
+        <a class="nav-link" routerLink="/users">Users</a>
+      </li>
+      <li class="nav-item " [class.active] = "isMenuActive('store')">
+        <a class="nav-link" routerLink="/store">Store</a>
+      </li>
+      <li class="nav-item " [class.active] = "isMenuActive('about-us')">
+        <a class="nav-link" routerLink="/about-us">About us</a>
+      </li>
+      <li class="nav-item " [class.active] = "isMenuActive('cart')">
+        <a class="nav-link" routerLink="/cart">Cart</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </div>
 </nav>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="opacity: 0.95;">
-    <div class="container">
-      <ul class="navbar-nav justify-content-between w-100">
-        <li class="nav-item" [class.active] = "isMenuActive('')">
-          <a class="nav-link" routerLink="/">Home</a>
-        </li>
-        <li *ngIf="isAdmin" class="nav-item " [class.active] = "isMenuActive('users')">
-          <a class="nav-link" routerLink="/users">Users</a>
-        </li>
-        <li class="nav-item " [class.active] = "isMenuActive('users')">
-          <a class="nav-link" routerLink="/store">Store</a>
-        </li>
-        <li class="nav-item " [class.active] = "isMenuActive('users')">
-          <a class="nav-link" routerLink="/about-us">About us</a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" (click)="logout()">Cart</a>
-        </li>
-      </ul>
-    </div>
-</nav>
-</div>
 <router-outlet></router-outlet>
 
