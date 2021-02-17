@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserControllerService, UserDTO} from '../../../api/generated';
+import {UserControllerService, UserDTO} from '../../api/generated';
 
 
 

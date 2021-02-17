@@ -1,10 +1,12 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
-import {HomeComponent} from './home/home.component';
 import {MainComponent} from './main.component';
-import {UserComponent} from './user/user.component';
+import {UserComponent} from '../user/user.component';
 import {AuthGuard} from '../shared/helpers/auth.guard';
 import {UserDTO} from '../../api/generated';
+import {EmployeesComponent} from './employees/employees.component';
+import {CreateEmployeeComponent} from './create-employee/create-employee.component';
+import {EditEmployeeComponent} from './edit-employee/edit-employee.component';
 
 const routes: Routes = [
   {
@@ -13,25 +15,19 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent
+        component: EmployeesComponent
       },
       {
-        path: 'store',
-        component: HomeComponent
+        path: 'create',
+        component: CreateEmployeeComponent
       },
       {
-        path: 'about-us',
-        component: HomeComponent
+        path: ':id/edit',
+        component: EditEmployeeComponent
       },
       {
-        path: 'cart',
-        component: HomeComponent,
-      },
-      {
-        path: 'users',
-        component: UserComponent,
-        canActivate: [AuthGuard],
-        data: {roles: [UserDTO.RoleEnum.ADMIN]}
+        path: ':id',
+        component: EmployeesComponent,
       },
     ]
   }];

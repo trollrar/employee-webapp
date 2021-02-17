@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {AuthenticationService} from './shared/services/authentication.service';
 import {UserDTO} from '../api/generated';
 import RoleEnum = UserDTO.RoleEnum;
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,14 +13,27 @@ export class AppComponent {
   title = 'webapp';
   currentUser: UserDTO;
 
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  public currentUrl = '';
+  public user: UserDTO;
+  isCollapsed = true;
+
+  constructor(private router: Router, private route: ActivatedRoute, private authenticationService: AuthenticationService) {
+    authenticationService.currentUser.subscribe(user => this.user = user);
   }
 
   get isAdmin() {
-    return this.currentUser && this.currentUser.role === RoleEnum.ADMIN;
+    return this.user?.role === 'ADMIN' || false;
+  }
+
+  public isMenuActive(menu: string) {
+    return menu === this.route.firstChild?.routeConfig.path;
+  }
+
+  logout() {
+    this.authenticationService.logout();
+  }
+
+  login() {
+    this.router.navigate(['/login']);
   }
 }

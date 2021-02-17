@@ -1,1 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
+  <ul class="navbar-nav justify-content-end w-100">
+    <li *ngIf="!user" class="nav-item ">
+      <button class="btn btn-sm btn-outline-secondary btn-text d-inline" (click)="login()">Login</button>
+      <button class="btn btn-sm btn-outline-secondary btn-text d-inline" (click)="login()">Register</button>
+    </li>
+    <li *ngIf="!!user" class="nav-item">
+      <small class="text-white d-inline">Logged as: </small>
+      <small class="text-white d-inline mr-3">{{user.username}}</small>
+      <button class="btn btn-sm btn-outline-secondary btn-text d-inline" (click)="logout()">Logout</button>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="opacity: 0.95">
+  <div class="container">
+  <a class="font-italic navbar-brand mr-4 ">Employee panel</a>
+  <button (click)="isCollapsed=!isCollapsed" class="navbar-toggler" type="button">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div [ngbCollapse]="isCollapsed" class="pl-2 collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item" [class.active] = "isMenuActive('')">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+      <li class="nav-item " [class.active] = "isMenuActive('employees')">
+        <a class="nav-link" routerLink="/employees">Employees</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item " [class.active] = "isMenuActive('users')">
+        <a class="nav-link" routerLink="/users">Users</a>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>
+<div class="container">
 <router-outlet></router-outlet>
+</div>
