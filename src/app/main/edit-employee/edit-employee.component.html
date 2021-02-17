@@ -1,4 +1,7 @@
 <div class="card my-5">
+  <div class="card-header">
+    Edit employee
+  </div>
   <div class="card-body" *ngIf="!!employee">
     <div class="form-group">
       <label>First Name</label>
@@ -25,6 +28,6 @@
       </select>
     </div>
     <span *ngIf="invalidFields" class="text-danger">Employee info is incomplete!</span>
-    <button (click)="save()" type="submit" class="btn btn-dark">Create</button>
+    <button (click)="save()" type="submit" class="btn btn-dark">Update</button>
   </div>
 </div>
