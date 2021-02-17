@@ -1,1 +1,50 @@
-<p>employee works!</p>
+<div class="card my-5">
+  <div class="card-header">
+    <h5>Employee:
+    </h5>
+  </div>
+  <div class="card-body" *ngIf="!!employee">
+    <div class="row">
+      <div class="col-4">
+    <div class="row">
+      <div class="col-6">
+        Id:
+      </div>
+      <div class="col-6">
+        {{employee.id}}
+      </div>
+      <div class="col-6">
+        First Name:
+      </div>
+      <div class="col-6">
+        {{employee.firstName}}
+      </div>
+      <div class="col-6">
+        Last Name:
+      </div>
+      <div class="col-6">
+        {{employee.lastName}}
+      </div>
+      <div class="col-6">
+        Position:
+      </div>
+      <div class="col-6">
+        {{employee.position}}
+      </div>
+      <div class="col-6">
+        Creation Date:
+      </div>
+      <div class="col-6">
+        {{employee.creationDate | date}}
+      </div>
+    </div>
+    </div>
+      <div class="col-8 text-center">
+        <h6>Supervised by:</h6>
+        <p>{{employee.supervisor?.firstName || 'Have no supervisor'}} {{employee.supervisor?.lastName}}</p>
+        <h6>Is supervising:</h6>
+        <p *ngFor="let em of $isSupervising | async">{{em.firstName}} {{em.lastName}}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {EmployeeDTO} from '../../../api/generated/model/employeeDTO';
-import {EmployeeControllerService} from '../../../api/generated';
+import {EmployeeControllerService, EmployeeCreateDTO} from '../../../api/generated';
+import {Observable} from 'rxjs';
+import {AuthenticationService} from '../../shared/services/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-employee',
@@ -10,20 +13,23 @@ import {EmployeeControllerService} from '../../../api/generated';
 export class CreateEmployeeComponent implements OnInit {
 
 
-  employee: EmployeeDTO = {} as EmployeeDTO;
+  employee: EmployeeCreateDTO = {} as EmployeeDTO;
   invalidFields = false;
+  $employees: Observable<Array<EmployeeDTO>>;
 
-  constructor(private controller: EmployeeControllerService) { }
+  constructor(private controller: EmployeeControllerService, private router: Router) {
+    this.$employees = controller.getEmployeesUsingGET();
+  }
 
   ngOnInit(): void {
   }
 
-  save() {
-    console.log(this.employee);
+  async save() {
     if (!this.employee.firstName || !this.employee.lastName || !this.employee.position) {
       this.invalidFields = true;
     }
-    this.controller.createUsingPOST(this.employee);
+    const result = await this.controller.createUsingPOST(this.employee).toPromise();
+    this.router.navigate(['/employees']);
   }
 
 }

@@ -3,19 +3,24 @@
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
+        <th scope="col">Full name</th>
+        <th scope="col">Position</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Options</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let employee of service.$employees | async">
-        <td>{{ employee.id }}</td>
+      <tr *ngFor="let employee of $employees | async">
         <td>{{ employee.firstName }} {{ employee.lastName }}</td>
-        <td></td>
+        <td>{{ employee.position}}</td>
+        <td>{{ employee.creationDate | date}}</td>
+        <th scope="col">
+          <button class="btn btn-sm btn-success" routerLink="{{employee.id}}">View</button>
+          <button *ngIf="isAdmin" routerLink="{{employee.id}}/edit" class="btn ml-2 btn-sm btn-primary">Edit</button>
+          <button *ngIf="isAdmin" (click)="delete(employee.id)" class="btn ml-2 btn-sm btn-danger">Delete</button></th>
       </tr>
       </tbody>
     </table>
-    <button class="btn btn-dark">Add</button>
+    <button *ngIf="isAdmin" routerLink="create" class="btn btn-dark">Add</button>
   </div>
 </div>

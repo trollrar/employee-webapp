@@ -1,1 +1,30 @@
-<p>edit-employee works!</p>
+<div class="card my-5">
+  <div class="card-body" *ngIf="!!employee">
+    <div class="form-group">
+      <label>First Name</label>
+      <input [(ngModel)]="employee.firstName" type="text" class="form-control" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input [(ngModel)]="employee.lastName" type="text" class="form-control" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label>Position</label>
+      <select [(ngModel)]="employee.position" class="form-control">
+        <option value="OTHER">Other</option>
+        <option value="OFFICE">Office</option>
+        <option value="CUSTOMER_SERVICE">Customer service</option>
+        <option value="MANAGEMENT">Management</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Supervisor</label>
+      <select [(ngModel)]="employee.supervisorId" class="form-control">
+        <option [value]="null">No supervisor</option>
+        <option *ngFor="let employee of $employees | async" [value]="employee.id" >{{employee.firstName}} {{employee.lastName}}</option>
+      </select>
+    </div>
+    <span *ngIf="invalidFields" class="text-danger">Employee info is incomplete!</span>
+    <button (click)="save()" type="submit" class="btn btn-dark">Create</button>
+  </div>
+</div>

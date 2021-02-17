@@ -1,0 +1,37 @@
+<div class="card my-5">
+  <div class="card-body text-center">
+    <h2>Hello!</h2>
+    <h5>This is employees panel.</h5>
+    <div *ngIf="user">
+      <h6>Welcome {{user.username}}</h6>
+      <p>ROLE: {{user.role}}</p>
+      <div *ngIf="user.role === 'ADMIN'">
+        You can now:
+        <ul>
+          <li>
+            See employees
+          </li>
+          <li>
+            Create and update employees
+          </li>
+          <li>
+            See users
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="user.role === 'USER'">
+        You can now:
+        <ul>
+          <li>
+            See employees
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div *ngIf="!user">
+      <label>Login to use this panel... default usernames and passwords:</label>
+      <p>admin, admin</p>
+      <p>user, user</p>
+    </div>
+    </div>
+</div>

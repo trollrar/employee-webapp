@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+
 export interface UserRegisterDTO { 
     email?: string;
     password?: string;
