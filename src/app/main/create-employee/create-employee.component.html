@@ -1,1 +1,23 @@
-<p>create-employee works!</p>
+<div class="card my-5">
+  <div class="card-body">
+      <div class="form-group">
+        <label>First Name</label>
+        <input [(ngModel)]="employee.firstName" type="text" class="form-control" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input [(ngModel)]="employee.lastName" type="text" class="form-control" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label>Position</label>
+        <select [(ngModel)]="employee.position" class="form-control" id="exampleFormControlSelect1">
+          <option value="OTHER">Other</option>
+          <option value="OFFICE">Office</option>
+          <option value="CUSTOMERSERVICE">Costumer service</option>
+          <option value="MANAGEMENT">Management</option>
+        </select>
+      </div>
+      <span *ngIf="invalidFields" class="text-danger">Employee info is incomplete!</span>
+      <button (click)="save()" type="submit" class="btn btn-dark">Create</button>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { EmployeeComponent } from './employee/employee.component';
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -16,6 +17,7 @@ import { EmployeeComponent } from './employee/employee.component';
     MainRoutingModule,
     CommonModule,
     NgbModule,
+    FormsModule,
   ]
 })
 export class MainModule { }
