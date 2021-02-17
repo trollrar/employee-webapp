@@ -27,7 +27,7 @@ export class EmployeesComponent implements OnInit {
     console.log('asa');
     await this.controller.deleteEmployeeUsingDELETE(id).toPromise();
     console.log('aasfsa');
-    this.router.navigate(['/employees']);
+    window.location.reload();
   }
 
   ngOnInit(): void {
